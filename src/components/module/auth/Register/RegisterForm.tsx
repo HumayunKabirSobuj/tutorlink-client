@@ -9,8 +9,8 @@ const RegisterForm = () => {
   const [userType, setUserType] = useState<"tutor" | "student">("student");
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4">
-      <div className="w-full max-w-lg border-4 border-gray-400 shadow-2xl px-4 py-2 rounded-3xl">
+    <div className="min-h-screen flex items-center justify-center p-4 ">
+      <div className="w-full max-w-lg  px-4 py-2 ">
         <h1 className="lg:text-xl lg:block hidden text-sm font-bold mb-4">
           Join TutorLink 🎓: Connect, Learn, and Teach
         </h1>

@@ -2,11 +2,30 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { LogOut, Menu, X } from "lucide-react";
 import Link from "next/link";
+import { useUser } from "@/context/UserContext";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { logout } from "@/services/AuthService";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const { user, setIsLoading } = useUser();
+  const handleLogOut = () => {
+    logout();
+    setIsLoading(true);
+  };
+
+  const pathname = usePathname();
 
   return (
     <nav className="bg-white shadow-md px-6 py-4 sticky top-0 w-full z-50">
@@ -20,31 +39,79 @@ export default function Navbar() {
 
         {/* Desktop Menu */}
         <div className="hidden md:flex lg:space-x-10 md:gap-4">
-          <Link href="/" className="hover:text-blue-600">
+          <Link href="/"  className={`hover:text-blue-600 ${
+                pathname === "/" ? "text-green-500 underline" : ""
+              }`}>
             Home
           </Link>
-          <Link href="/browse-tutors" className="hover:text-blue-600">
+          
+          <Link href="/browse-tutors" className={`hover:text-blue-600 ${
+                pathname === "/browse-tutors" ? "text-green-500 underline" : ""
+              }`}>
             Browse Tutors
           </Link>
-          <Link href="/about" className="hover:text-blue-600">
+          <Link href="/about"  className={`hover:text-blue-600 ${
+                pathname === "/about" ? "text-green-500 underline" : ""
+              }`}>
             About
           </Link>
-          <Link href="/faq" className="hover:text-blue-600">
+          <Link href="/faq" className={`hover:text-blue-600 ${
+                pathname === "/faq" ? "text-green-500 underline" : ""
+              }`}>
             FAQ
           </Link>
-          <Link href="/blog" className="hover:text-blue-600">
+          <Link href="/blog" className={`hover:text-blue-600 ${
+                pathname === "/blog" ? "text-green-500 underline" : ""
+              }`}>
             Blog
           </Link>
         </div>
 
-        {/* Auth Buttons */}
-        <div className="hidden md:flex space-x-4">
-          <Button variant="outline" className="border-2 bg-green-300 rounded-xl">
-            <Link href="/login">Login</Link>
-          </Button>
-          <Button variant="outline" className="border-2 bg-green-300 rounded-xl">
-            <Link href="/register">Register</Link>
-          </Button>
+       
+        
+
+        <div className="hidden md:flex">
+          {user ? (
+            <div>
+              <DropdownMenu>
+                <DropdownMenuTrigger>
+                  <Avatar className=" h-12 w-12">
+                    <AvatarImage
+                      className="rounded-full"
+                      src={user?.image || "https://github.com/shadcn.png"}
+                    />
+                    <AvatarFallback>User</AvatarFallback>
+                  </Avatar>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>Profile</DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <Link href={`/${user?.role}/dashboard`}>Dashboard</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>My Shop</DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem
+                    className="bg-red-500 cursor-pointer"
+                    onClick={handleLogOut}
+                  >
+                    <LogOut />
+                    <span>Log Out</span>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+          ) : (
+            <div className="hidden md:flex space-x-4">
+              <Button
+                variant="outline"
+                className="border-2 bg-green-300 rounded-xl"
+              >
+                <Link href="/login">Login</Link>
+              </Button>
+            </div>
+          )}
         </div>
 
         {/* Mobile Menu Button */}
@@ -55,7 +122,45 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden bg-white shadow-md py-4 flex flex-col space-y-4 px-6">
+        <div className="md:hidden bg-white shadow-md py-4 flex flex-col justify-center items-center space-y-4 px-6">
+          {user ? (
+            <div>
+              <DropdownMenu>
+                <DropdownMenuTrigger>
+                  <Avatar className=" h-16 w-16">
+                    <AvatarImage src={user?.image} />
+                    <AvatarFallback>User</AvatarFallback>
+                  </Avatar>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>Profile</DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <Link href={`/${user?.role}/dashboard`}>Dashboard</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>My Shop</DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem
+                    className="bg-red-500 cursor-pointer"
+                    onClick={handleLogOut}
+                  >
+                    <LogOut />
+                    <span>Log Out</span>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+          ) : (
+            <div className="hidden md:flex space-x-4">
+              <Button
+                variant="outline"
+                className="border-2 bg-green-300 rounded-xl"
+              >
+                <Link href="/login">Login</Link>
+              </Button>
+            </div>
+          )}
           <Link href="/" onClick={() => setIsOpen(false)}>
             Home
           </Link>
@@ -71,14 +176,7 @@ export default function Navbar() {
           <Link href="/blog" onClick={() => setIsOpen(false)}>
             Blog
           </Link>
-          <div className="flex flex-col space-y-2 mt-4">
-            <Button>
-              <Link href="/login">Login</Link>
-            </Button>
-            <Button>
-              <Link href="/register">Register</Link>
-            </Button>
-          </div>
+          <div className="flex md:hidden"></div>
         </div>
       )}
     </nav>

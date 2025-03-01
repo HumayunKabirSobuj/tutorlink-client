@@ -1,10 +1,11 @@
-export interface IUser {
-  userId: string;
+
+
+export type IUser = {
   name: string;
   email: string;
-  hasShop?: boolean;
-  isActive?: boolean;
-  role: "user" | "admin";
-  iat?: number;
-  exp?: number;
-}
+  phone: string;
+  role: "tutor"; // Fixed role value
+  image: string;
+  iat: number; // Issued at timestamp
+  exp: number; // Expiry timestamp
+};

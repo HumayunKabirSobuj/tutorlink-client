@@ -44,7 +44,6 @@ export const districtsWithThanas = [
       district: "Bogra",
       thanas: ["Adamdighi", "Dhunat", "Dhupchanchia", "Gabtali", "Kahaloo"],
     },
-    // ... বাকি ৫৪টি জেলা নিম্নরূপ
     { district: "Faridpur", thanas: ["Alfadanga", "Bhanga", "Boalmari", "Charbhadrasan"] },
     { district: "Tangail", thanas: ["Basail", "Bhuapur", "Delduar", "Ghatail"] },
     { district: "Jessore", thanas: ["Abhaynagar", "Bagherpara", "Chaugachha", "Jhikargachha"] },
