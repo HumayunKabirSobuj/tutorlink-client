@@ -20,6 +20,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { StudentFormSchema } from "./StudentFormSchema";
 import axios from "axios";
 import Link from "next/link";
+import { registerUser } from "@/services/AuthService";
+import { toast } from "sonner";
 
 // components/StudentForm.tsx
 const StudentForm = () => {
@@ -73,7 +75,15 @@ const StudentForm = () => {
         image: imageUrl,
       };
 
-      console.log({ studentData });
+      // console.log({ studentData });
+
+      const result = await registerUser(studentData);
+      console.log(result);
+      if (result?.success) {
+        toast.success(result.message);
+      }else{
+        toast.error(result.message)
+      }
 
       //   console.log(studentData);
     } catch (error: any) {
