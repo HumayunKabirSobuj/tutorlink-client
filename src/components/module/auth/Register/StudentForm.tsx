@@ -19,7 +19,7 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { StudentFormSchema } from "./StudentFormSchema";
 import axios from "axios";
-import Loader from "../../shared/Loader";
+import Link from "next/link";
 
 // components/StudentForm.tsx
 const StudentForm = () => {
@@ -31,6 +31,9 @@ const StudentForm = () => {
     formState: { isSubmitting },
   } = form;
 
+  const password = form.watch("password");
+  const passwordConfirm = form.watch("passwordConfirm");
+
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
       //   console.log(data);
@@ -39,11 +42,19 @@ const StudentForm = () => {
 
       const newFormData = new FormData();
       newFormData.append("file", image); // Add the image file
-      newFormData.append("upload_preset", process.env.NEXT_PUBLIC_OUPLOAD_PRESET as string); // Your upload preset
-      newFormData.append("cloud_name", process.env.NEXT_PUBLIC_CLOUD_NAME as string); // Not necessary for the request
+      newFormData.append(
+        "upload_preset",
+        process.env.NEXT_PUBLIC_OUPLOAD_PRESET as string
+      ); // Your upload preset
+      newFormData.append(
+        "cloud_name",
+        process.env.NEXT_PUBLIC_CLOUD_NAME as string
+      ); // Not necessary for the request
 
       const response = await axios.post(
-        `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUD_NAME as string}/image/upload`,
+        `https://api.cloudinary.com/v1_1/${
+          process.env.NEXT_PUBLIC_CLOUD_NAME as string
+        }/image/upload`,
         newFormData,
         {
           headers: {
@@ -69,14 +80,6 @@ const StudentForm = () => {
       console.error(error);
     }
   };
-
-  if (isSubmitting) {
-    return (
-      <div className="flex items-center justify-center">
-        <Loader />
-      </div>
-    );
-  }
 
   return (
     <Form {...form}>
@@ -137,6 +140,25 @@ const StudentForm = () => {
             )}
           />
 
+          <FormField
+            control={form.control}
+            name="passwordConfirm"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Confirm Password</FormLabel>
+                <FormControl>
+                  <Input type="password" {...field} value={field.value || ""} />
+                </FormControl>
+
+                {passwordConfirm && password !== passwordConfirm ? (
+                  <FormMessage>Password does not match</FormMessage>
+                ) : (
+                  <FormMessage />
+                )}
+              </FormItem>
+            )}
+          />
+
           {/* Image Upload Field */}
           <FormField
             control={form.control}
@@ -163,12 +185,27 @@ const StudentForm = () => {
           />
 
           <div>
-            <Button type="submit" className="w-full mb-3">
-              Register
+            <Button
+              type="submit"
+              className="w-full mb-3"
+              disabled={
+                passwordConfirm && password !== passwordConfirm ? true : false
+              }
+            >
+              {isSubmitting ? "Registering.." : "Register"}
             </Button>
           </div>
         </div>
       </form>
+      <p className="text-center text-sm mt-4 mb-2">
+        Already have an account?
+        <Link
+          href="/login"
+          className="text-blue-600 font-semibold hover:underline ml-2"
+        >
+          Log in here
+        </Link>
+      </p>
     </Form>
   );
 };

@@ -19,6 +19,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
+import Link from "next/link";
 
 const TutorForm = () => {
   const form = useForm();
@@ -171,6 +172,15 @@ const TutorForm = () => {
           </div>
         </div>
       </form>
+      <p className="text-center text-sm mt-4 mb-2">
+        Already have an account?
+        <Link
+          href="/login"
+          className="text-blue-600 font-semibold hover:underline ml-2"
+        >
+          Log in here
+        </Link>
+      </p>
     </Form>
   );
 };

@@ -13,6 +13,7 @@ export const StudentFormSchema = z.object({
   password: z
     .string({ required_error: "Password is required" })
     .length(6, "Password must be 6 characters"),
+  passwordConfirm: z.string(),
   image: z
     .instanceof(File)
     .refine((file) => file.size <= 5 * 1024 * 1024, {
