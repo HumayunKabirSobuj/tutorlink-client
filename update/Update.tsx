@@ -4,7 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useForm } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
 import {
   Form,
   FormField,
@@ -25,7 +25,7 @@ export default function EducationalInfoForm() {
   const [tab, setTab] = useState("educational");
   const form = useForm();
 
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: FieldValues) => {
     console.log("Form Data:", data);
   };
 

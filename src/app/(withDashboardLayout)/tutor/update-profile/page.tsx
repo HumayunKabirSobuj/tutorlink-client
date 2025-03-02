@@ -1,5 +1,7 @@
 "use client";
 import EducationalInfoForm from "@/components/module/dashboard/tutor/update-profile/EducationalInfoForm";
+import PersonalInfoForm from "@/components/module/dashboard/tutor/update-profile/PersonalInfoForm";
+import TuitionInfoForm from "@/components/module/dashboard/tutor/update-profile/TutionInfoForm";
 import { useState } from "react";
 
 const TutorUpdateForm = () => {
@@ -44,6 +46,8 @@ const TutorUpdateForm = () => {
         <div className="mt-4">
           {/* {userType === "student" ? <StudentForm /> : <TutorForm />} */}
           {userType === "educational" && <EducationalInfoForm />}
+          {userType === "tuition" && <TuitionInfoForm />}
+          {userType === "personal" && <PersonalInfoForm />}
         </div>
       </div>
     </div>
