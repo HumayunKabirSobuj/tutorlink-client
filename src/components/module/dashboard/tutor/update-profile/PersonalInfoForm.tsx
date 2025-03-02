@@ -13,7 +13,7 @@ import { Input } from "@/components/ui/input";
 import { useUser } from "@/context/UserContext";
 import { updateTurorInfo } from "@/services/TutorInfoUpdate";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React from "react";
+import React, { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -25,7 +25,7 @@ const PersonalInfoForm = () => {
     motherName: z.string().min(1, "Mother's Name is required"),
     mobileNumber: z
       .string()
-      .length(11, "Numbers length must be required at 11 character"),
+      .length(11, "Numbers length must be required at 11 characters"),
     email: z.string().email("Invalid Email Address"),
     address: z.string().min(1, "Address is required"),
   });
@@ -34,24 +34,21 @@ const PersonalInfoForm = () => {
     resolver: zodResolver(PersonalInfoSchema),
   });
   const { user } = useUser();
+  const [isEditable, setIsEditable] = useState(false);  // Editable state for toggle
 
-  const onSubmit = async(data: FieldValues) => {
-    // console.log("Form Data:", data);
+  const onSubmit = async (data: FieldValues) => {
     try {
       const modifiedData = {
         tutorInfo: { ...user },
-        personal: {
-          ...data,
-        },
+        personal: { ...data },
       };
-      // console.log(modifiedData)
 
       const result = await updateTurorInfo(modifiedData);
-      // console.log(result);
       if (result?.success) {
         toast.success(result?.message);
+        setIsEditable(false); // Disable editing after saving
       } else {
-        toast.success(result?.message);
+        toast.error(result?.message); // Show error message if update fails
       }
     } catch (error) {
       console.error(error);
@@ -68,9 +65,7 @@ const PersonalInfoForm = () => {
               className="w-full space-y-6"
             >
               <Card className="p-4 space-y-4">
-                <h3 className="font-semibold text-center">
-                  Personal Information
-                </h3>
+                <h3 className="font-semibold text-center">Personal Information</h3>
                 <FormField
                   control={form.control}
                   name="fullName"
@@ -83,6 +78,7 @@ const PersonalInfoForm = () => {
                           type="text"
                           {...field}
                           value={field.value || ""}
+                          disabled={!isEditable} // Disable field if not editable
                         />
                       </FormControl>
                       <FormMessage />
@@ -94,13 +90,14 @@ const PersonalInfoForm = () => {
                   name="fatherName"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Father`&apos;`s Name</FormLabel>
+                      <FormLabel>Father&apos;s Name</FormLabel>
                       <FormControl>
                         <Input
                           placeholder="Enter Your Father's Name"
                           type="text"
                           {...field}
                           value={field.value || ""}
+                          disabled={!isEditable} // Disable field if not editable
                         />
                       </FormControl>
                       <FormMessage />
@@ -112,13 +109,14 @@ const PersonalInfoForm = () => {
                   name="motherName"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Mother`&apos;`s Name</FormLabel>
+                      <FormLabel>Mother&apos;s Name</FormLabel>
                       <FormControl>
                         <Input
                           placeholder="Enter Your Mother's Name"
                           type="text"
                           {...field}
                           value={field.value || ""}
+                          disabled={!isEditable} // Disable field if not editable
                         />
                       </FormControl>
                       <FormMessage />
@@ -137,6 +135,7 @@ const PersonalInfoForm = () => {
                           type="text"
                           {...field}
                           value={field.value || ""}
+                          disabled={!isEditable} // Disable field if not editable
                         />
                       </FormControl>
                       <FormMessage />
@@ -155,6 +154,7 @@ const PersonalInfoForm = () => {
                           type="email"
                           {...field}
                           value={field.value || ""}
+                          disabled={!isEditable} // Disable field if not editable
                         />
                       </FormControl>
                       <FormMessage />
@@ -173,6 +173,7 @@ const PersonalInfoForm = () => {
                           type="text"
                           {...field}
                           value={field.value || ""}
+                          disabled={!isEditable} // Disable field if not editable
                         />
                       </FormControl>
                       <FormMessage />
@@ -180,9 +181,21 @@ const PersonalInfoForm = () => {
                   )}
                 />
               </Card>
-              <Button type="submit" className="w-full">
-                Save
-              </Button>
+              <div>
+                {isEditable ? (
+                  <Button type="submit" className="w-full">
+                    Save
+                  </Button>
+                ) : (
+                  <Button
+                    type="button"
+                    onClick={() => setIsEditable(true)} // Enable editing
+                    className="w-full"
+                  >
+                    Edit
+                  </Button>
+                )}
+              </div>
             </form>
           </Form>
         </CardContent>

@@ -20,7 +20,7 @@ import {
 import { useUser } from "@/context/UserContext";
 import { updateTurorInfo } from "@/services/TutorInfoUpdate";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React from "react";
+import React, { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -39,24 +39,22 @@ const TuitionInfoForm = () => {
   const form = useForm({
     resolver: zodResolver(TuitionSchema),
   });
-const { user } = useUser();
-  const onSubmit = async(data: FieldValues) => {
-    // console.log("Form Data:", data);
+  const { user } = useUser();
+  const [isEditable, setIsEditable] = useState(false); // Editable state
+
+  const onSubmit = async (data: FieldValues) => {
     try {
       const modifiedData = {
         tutorInfo: { ...user },
-        tuition: {
-          ...data,
-        },
+        tuition: { ...data },
       };
-      // console.log(modifiedData)
 
       const result = await updateTurorInfo(modifiedData);
-      // console.log(result);
       if (result?.success) {
         toast.success(result?.message);
+        setIsEditable(false); // Disable editing after saving
       } else {
-        toast.success(result?.message);
+        toast.error(result?.message);
       }
     } catch (error) {
       console.error(error);
@@ -86,6 +84,7 @@ const { user } = useUser();
                           type="text"
                           {...field}
                           value={field.value || ""}
+                          disabled={!isEditable} // Disable if not editable
                         />
                       </FormControl>
                       <FormMessage />
@@ -105,6 +104,7 @@ const { user } = useUser();
                           type="text"
                           {...field}
                           value={field.value || ""}
+                          disabled={!isEditable} // Disable if not editable
                         />
                       </FormControl>
                       <FormMessage />
@@ -121,6 +121,7 @@ const { user } = useUser();
                       <Select
                         onValueChange={field.onChange}
                         defaultValue={field.value}
+                        disabled={!isEditable} // Disable if not editable
                       >
                         <FormControl>
                           <SelectTrigger>
@@ -153,6 +154,7 @@ const { user } = useUser();
                           type="number"
                           {...field}
                           value={field.value || ""}
+                          disabled={!isEditable} // Disable if not editable
                         />
                       </FormControl>
                       <FormMessage />
@@ -172,6 +174,7 @@ const { user } = useUser();
                           type="number"
                           {...field}
                           value={field.value || ""}
+                          disabled={!isEditable} // Disable if not editable
                         />
                       </FormControl>
                       <FormMessage />
@@ -191,6 +194,7 @@ const { user } = useUser();
                           type="date"
                           {...field}
                           value={field.value || ""}
+                          disabled={!isEditable} // Disable if not editable
                         />
                       </FormControl>
                       <FormMessage />
@@ -210,6 +214,7 @@ const { user } = useUser();
                           type="date"
                           {...field}
                           value={field.value || ""}
+                          disabled={!isEditable} // Disable if not editable
                         />
                       </FormControl>
                       <FormMessage />
@@ -218,9 +223,21 @@ const { user } = useUser();
                 />
               </Card>
 
-              <Button type="submit" className="w-full">
-                Save
-              </Button>
+              <div>
+                {isEditable ? (
+                  <Button type="submit" className="w-full">
+                    Save
+                  </Button>
+                ) : (
+                  <Button
+                    type="button"
+                    onClick={() => setIsEditable(true)} // Enable editing
+                    className="w-full"
+                  >
+                    Edit
+                  </Button>
+                )}
+              </div>
             </form>
           </Form>
         </CardContent>

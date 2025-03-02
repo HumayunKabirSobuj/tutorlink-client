@@ -1,3 +1,5 @@
+
+
 "use client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -21,7 +23,7 @@ import { useUser } from "@/context/UserContext";
 import useTutorInfo from "@/hooks/useTutorInfo";
 import { updateTurorInfo } from "@/services/TutorInfoUpdate";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React from "react";
+import React, { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -29,6 +31,8 @@ import { z } from "zod";
 const EducationalInfoForm = () => {
   const { user } = useUser();
   const { filteredTutor } = useTutorInfo(user?.email as string);
+
+  const [isEditable, setIsEditable] = useState(false);
 
   const EducationSchema = z.object({
     graduationCurriculum: z.string(),
@@ -45,25 +49,10 @@ const EducationalInfoForm = () => {
 
   console.log(filteredTutor[0]?.education?.graduationCurriculum);
 
-  const defaultValues = {
-    graduationCurriculum: filteredTutor[0]?.education?.graduationCurriculum as string || "", 
-    graduationGroup: filteredTutor[0]?.education?.graduationGroup as string || "",
-    graduationInstituteType: 'Public',
-    graduationPassingYear: '2022',
-    graduationResult: 'A+',
-    secondaryCurriculum: 'Science',
-    secondaryGroup: 'Math',
-    secondaryInstitute: 'XYZ School',
-    secondaryPassingYear: '2018',
-    secondaryResult: 'A',
-  };
   const form = useForm({
     resolver: zodResolver(EducationSchema),
-    defaultValues,
   });
 
-  
-  console.log(filteredTutor[0]);
   const onSubmit = async (data: FieldValues) => {
     try {
       const modifiedData = {
@@ -74,16 +63,17 @@ const EducationalInfoForm = () => {
       };
 
       const result = await updateTurorInfo(modifiedData);
-      // console.log(result);
       if (result?.success) {
         toast.success(result?.message);
+        setIsEditable(false); // Disable editing after saving
       } else {
-        toast.success(result?.message);
+        toast.error(result?.message);
       }
     } catch (error) {
       console.error(error);
     }
   };
+
   return (
     <div>
       <Card>
@@ -97,6 +87,7 @@ const EducationalInfoForm = () => {
                 <h3 className="font-semibold text-center">
                   Secondary Education
                 </h3>
+
                 <FormField
                   control={form.control}
                   name="secondaryInstitute"
@@ -105,10 +96,11 @@ const EducationalInfoForm = () => {
                       <FormLabel>Institute Name</FormLabel>
                       <FormControl>
                         <Input
-                          placeholder="Enter Your Secondy Intitute Name"
+                          placeholder="Enter Your Secondary Institute Name"
                           type="text"
                           {...field}
                           value={field.value || ""}
+                          disabled={!isEditable} // Disable field if not editable
                         />
                       </FormControl>
                       <FormMessage />
@@ -125,6 +117,7 @@ const EducationalInfoForm = () => {
                       <Select
                         onValueChange={field.onChange}
                         defaultValue={field.value}
+                        disabled={!isEditable} // Disable field if not editable
                       >
                         <FormControl>
                           <SelectTrigger>
@@ -143,6 +136,7 @@ const EducationalInfoForm = () => {
                     </FormItem>
                   )}
                 />
+
                 <FormField
                   control={form.control}
                   name="secondaryGroup"
@@ -152,6 +146,7 @@ const EducationalInfoForm = () => {
                       <Select
                         onValueChange={field.onChange}
                         defaultValue={field.value}
+                        disabled={!isEditable} // Disable field if not editable
                       >
                         <FormControl>
                           <SelectTrigger>
@@ -169,6 +164,7 @@ const EducationalInfoForm = () => {
                     </FormItem>
                   )}
                 />
+
                 <FormField
                   control={form.control}
                   name="secondaryPassingYear"
@@ -178,6 +174,7 @@ const EducationalInfoForm = () => {
                       <Select
                         onValueChange={field.onChange}
                         defaultValue={field.value}
+                        disabled={!isEditable} // Disable field if not editable
                       >
                         <FormControl>
                           <SelectTrigger>
@@ -210,6 +207,7 @@ const EducationalInfoForm = () => {
                           type="number"
                           {...field}
                           value={field.value || ""}
+                          disabled={!isEditable} // Disable field if not editable
                         />
                       </FormControl>
                       <FormMessage />
@@ -232,6 +230,7 @@ const EducationalInfoForm = () => {
                       <Select
                         onValueChange={field.onChange}
                         defaultValue={field.value}
+                        disabled={!isEditable} // Disable field if not editable
                       >
                         <FormControl>
                           <SelectTrigger>
@@ -262,6 +261,7 @@ const EducationalInfoForm = () => {
                       <Select
                         onValueChange={field.onChange}
                         defaultValue={field.value}
+                        disabled={!isEditable} // Disable field if not editable
                       >
                         <FormControl>
                           <SelectTrigger>
@@ -280,6 +280,7 @@ const EducationalInfoForm = () => {
                     </FormItem>
                   )}
                 />
+
                 <FormField
                   control={form.control}
                   name="graduationGroup"
@@ -289,6 +290,7 @@ const EducationalInfoForm = () => {
                       <Select
                         onValueChange={field.onChange}
                         defaultValue={field.value}
+                        disabled={!isEditable} // Disable field if not editable
                       >
                         <FormControl>
                           <SelectTrigger>
@@ -307,6 +309,7 @@ const EducationalInfoForm = () => {
                     </FormItem>
                   )}
                 />
+
                 <FormField
                   control={form.control}
                   name="graduationPassingYear"
@@ -316,6 +319,7 @@ const EducationalInfoForm = () => {
                       <Select
                         onValueChange={field.onChange}
                         defaultValue={field.value}
+                        disabled={!isEditable} // Disable field if not editable
                       >
                         <FormControl>
                           <SelectTrigger>
@@ -348,6 +352,7 @@ const EducationalInfoForm = () => {
                           type="number"
                           {...field}
                           value={field.value || ""}
+                          disabled={!isEditable} // Disable field if not editable
                         />
                       </FormControl>
                       <FormMessage />
@@ -356,9 +361,22 @@ const EducationalInfoForm = () => {
                 />
               </Card>
 
-              <Button type="submit" className="w-full">
-                Save
-              </Button>
+              <div>
+                {isEditable && (
+                  <Button type="submit" className="w-full">
+                    Save
+                  </Button>
+                )}
+                {!isEditable && (
+                  <Button
+                    type="button"
+                    onClick={() => setIsEditable(true)} // Enable editing
+                    className="w-full"
+                  >
+                    Edit
+                  </Button>
+                )}
+              </div>
             </form>
           </Form>
         </CardContent>
