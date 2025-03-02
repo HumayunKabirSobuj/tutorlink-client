@@ -17,9 +17,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useUser } from "@/context/UserContext";
+import { updateTurorInfo } from "@/services/TutorInfoUpdate";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
 import { FieldValues, useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 
 const TuitionInfoForm = () => {
@@ -36,9 +39,28 @@ const TuitionInfoForm = () => {
   const form = useForm({
     resolver: zodResolver(TuitionSchema),
   });
+const { user } = useUser();
+  const onSubmit = async(data: FieldValues) => {
+    // console.log("Form Data:", data);
+    try {
+      const modifiedData = {
+        tutorInfo: { ...user },
+        tuition: {
+          ...data,
+        },
+      };
+      // console.log(modifiedData)
 
-  const onSubmit = (data: FieldValues) => {
-    console.log("Form Data:", data);
+      const result = await updateTurorInfo(modifiedData);
+      // console.log(result);
+      if (result?.success) {
+        toast.success(result?.message);
+      } else {
+        toast.success(result?.message);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

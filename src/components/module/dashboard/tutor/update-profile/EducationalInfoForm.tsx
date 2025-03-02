@@ -49,7 +49,7 @@ const EducationalInfoForm = () => {
     try {
       const modifiedData = {
         tutorInfo: { ...user },
-        tutorUpdateInfo: {
+        education: {
           ...data,
         },
       };
