@@ -37,6 +37,7 @@ const EducationalInfoForm = () => {
   const EducationSchema = z.object({
     graduationCurriculum: z.string(),
     graduationGroup: z.string(),
+    graduationInstitute: z.string(),
     graduationInstituteType: z.string(),
     graduationPassingYear: z.string(),
     graduationResult: z.string(),
@@ -128,7 +129,6 @@ const EducationalInfoForm = () => {
                           <SelectItem value="Bangla">Bangla</SelectItem>
                           <SelectItem value="English">English</SelectItem>
                           <SelectItem value="Madrasha">Madrasha</SelectItem>
-                          <SelectItem value="Vocational">Vocational</SelectItem>
                         </SelectContent>
                       </Select>
 
@@ -223,6 +223,26 @@ const EducationalInfoForm = () => {
 
                 <FormField
                   control={form.control}
+                  name="graduationInstitute"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Institute Name</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="Enter Your Graduation Institute Name"
+                          type="text"
+                          {...field}
+                          value={field.value || ""}
+                          disabled={!isEditable} // Disable field if not editable
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
                   name="graduationInstituteType"
                   render={({ field }) => (
                     <FormItem>
@@ -271,7 +291,6 @@ const EducationalInfoForm = () => {
                         <SelectContent>
                           <SelectItem value="Bangla">Bangla</SelectItem>
                           <SelectItem value="English">English</SelectItem>
-                          <SelectItem value="Technical">Technical</SelectItem>
                           <SelectItem value="Madrasha">Madrasha</SelectItem>
                         </SelectContent>
                       </Select>

@@ -1,9 +1,11 @@
-import { getAllTutorInfo } from '@/services/TutorInfoUpdate';
-import { ITutorInfo } from '@/types';
-import { useState, useEffect } from 'react';
+import { getAllTutorInfo } from "@/services/TutorInfoUpdate";
+import { ITutorInfo } from "@/types";
+import { useState, useEffect } from "react";
 
 const useTutorInfo = (email: string) => {
-  const [tutorInformation, setTutorInformation] = useState<ITutorInfo[] | []>([]);
+  const [tutorInformation, setTutorInformation] = useState<ITutorInfo[] | []>(
+    []
+  );
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -14,7 +16,7 @@ const useTutorInfo = (email: string) => {
         const { data } = await getAllTutorInfo();
         setTutorInformation(data); // Data set
       } catch (error: any) {
-        setError(error.message || 'Error fetching tutor information');
+        setError(error.message || "Error fetching tutor information");
         console.error("Error fetching tutor info:", error);
       } finally {
         setLoading(false);
@@ -25,9 +27,11 @@ const useTutorInfo = (email: string) => {
   }, []);
 
   // Filter the tutorInformation array based on the provided email
-  const filteredTutor = tutorInformation.filter((tutor) => tutor.tutorInfo.email === email);
+  const filteredTutor = tutorInformation.filter(
+    (tutor) => tutor.tutorInfo.email === email
+  );
 
-  return { filteredTutor, loading, error };
+  return { tutorInformation, filteredTutor, loading, error };
 };
 
 export default useTutorInfo;

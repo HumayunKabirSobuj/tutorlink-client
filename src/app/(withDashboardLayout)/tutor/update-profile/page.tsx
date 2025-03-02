@@ -44,7 +44,6 @@ const TutorUpdateForm = () => {
         </div>
 
         <div className="mt-4">
-          {/* {userType === "student" ? <StudentForm /> : <TutorForm />} */}
           {userType === "educational" && <EducationalInfoForm />}
           {userType === "tuition" && <TuitionInfoForm />}
           {userType === "personal" && <PersonalInfoForm />}

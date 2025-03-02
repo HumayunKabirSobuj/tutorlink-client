@@ -8,8 +8,8 @@ const nextConfig: NextConfig = {
         hostname: "**",
       },
     ],
+    domains: ["res.cloudinary.com"],
   },
-  
 };
 
 export default nextConfig;

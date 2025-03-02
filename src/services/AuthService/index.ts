@@ -24,7 +24,7 @@ export const regiterStudent = async (userData: FieldValues) => {
     return Error(error);
   }
 };
-export const registerTutor= async (userData: FieldValues) => {
+export const registerTutor = async (userData: FieldValues) => {
   try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_API}/auth/register/tutor`,
@@ -67,6 +67,26 @@ export const loginUser = async (userData: FieldValues) => {
   }
 };
 
+export const getAllUser = async () => {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_API}/auth/get-all-user-information`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    const result = await res.json();
+    // console.log(result);
+    return result;
+  } catch (error: any) {
+    return Error(error);
+  }
+};
+
 export const getCurrentUser = async () => {
   const accessToken = (await cookies()).get("accessToken")?.value;
   let decodedData = null;
@@ -78,8 +98,6 @@ export const getCurrentUser = async () => {
     return null;
   }
 };
-
-
 
 export const logout = async () => {
   (await cookies()).delete("accessToken");
