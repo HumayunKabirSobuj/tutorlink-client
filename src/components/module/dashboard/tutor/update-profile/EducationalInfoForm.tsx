@@ -18,6 +18,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useUser } from "@/context/UserContext";
+import useTutorInfo from "@/hooks/useTutorInfo";
 import { updateTurorInfo } from "@/services/TutorInfoUpdate";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
@@ -27,6 +28,7 @@ import { z } from "zod";
 
 const EducationalInfoForm = () => {
   const { user } = useUser();
+  const { filteredTutor } = useTutorInfo(user?.email as string);
 
   const EducationSchema = z.object({
     graduationCurriculum: z.string(),
@@ -40,12 +42,29 @@ const EducationalInfoForm = () => {
     secondaryPassingYear: z.string(),
     secondaryResult: z.string(),
   });
+
+  console.log(filteredTutor[0]?.education?.graduationCurriculum);
+
+  const defaultValues = {
+    graduationCurriculum: filteredTutor[0]?.education?.graduationCurriculum as string || "", 
+    graduationGroup: filteredTutor[0]?.education?.graduationGroup as string || "",
+    graduationInstituteType: 'Public',
+    graduationPassingYear: '2022',
+    graduationResult: 'A+',
+    secondaryCurriculum: 'Science',
+    secondaryGroup: 'Math',
+    secondaryInstitute: 'XYZ School',
+    secondaryPassingYear: '2018',
+    secondaryResult: 'A',
+  };
   const form = useForm({
     resolver: zodResolver(EducationSchema),
+    defaultValues,
   });
 
+  
+  console.log(filteredTutor[0]);
   const onSubmit = async (data: FieldValues) => {
-    // console.log("Form Data:", data);
     try {
       const modifiedData = {
         tutorInfo: { ...user },
@@ -53,7 +72,6 @@ const EducationalInfoForm = () => {
           ...data,
         },
       };
-      // console.log(modifiedData)
 
       const result = await updateTurorInfo(modifiedData);
       // console.log(result);
