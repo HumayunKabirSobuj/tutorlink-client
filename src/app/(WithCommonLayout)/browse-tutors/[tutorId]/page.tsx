@@ -1,73 +1,83 @@
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
+import { Card } from "@/components/ui/card";
 
-const TutorDetails= async({params}:{params:{tutorId:string}}) => {
-  // Fake Tutor Data
-  const tutor = {
-    _id: "123456",
-    name: "John Doe",
-    image: "https://randomuser.me/api/portraits/men/45.jpg", // Random profile image
-    district: "Dhaka",
-    subjects: ["Mathematics", "Physics", "English"],
-    experience: "5+ years teaching high school students",
-    bio: "Passionate tutor with a strong background in mathematics and physics. Dedicated to helping students excel in their studies.",
-    contact: "johndoe@example.com",
-  };
+import Image from "next/image";
+import { getAllUser } from "@/services/AuthService";
+import { TGetAllUsers } from "@/types";
+import TutorTabs from "@/components/module/commonLayout/tutor/TutorTabs";
+
+interface IProps {
+  params: Promise<{
+    tutorId: string;
+  }>;
+}
+
+const TutorProfile = async ({ params }: IProps) => {
+  const preferredClasses = [
+    "Class 9 (Bangla Medium)",
+    "Class 8 (English Version)",
+    "HSC (Science)",
+  ];
+
+  const data = await params; // Promise resolve করলাম
+  const tutorId = data?.tutorId;
+  const allUser = await getAllUser();
+  // console.log(allUser);
+
+  const findUser: TGetAllUsers = allUser?.data?.find(
+    (user: TGetAllUsers) => user?._id === tutorId
+  );
+
+  // console.log(findUser);
+
+
+
+
+
 
   return (
-    <div className="max-w-2xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
-      {/* Tutor Image */}
-      <Image
-        className="w-full h-96 "
-        src={tutor.image}
-        alt={tutor.name}
-        width={500}
-        height={300}
-      />
-
-      <div className="p-6">
-        {/* Name & Location */}
-        <h2 className="text-2xl font-semibold text-gray-800 text-center">
-          {tutor.name}
-        </h2>
-        <p className="text-gray-600 text-center mt-1">📍 {tutor.district}</p>
-
-        {/* Subjects */}
-        <div className="mt-4">
-          <h3 className="text-lg font-semibold text-gray-700">Subjects:</h3>
-          <div className="flex flex-wrap gap-2 mt-2">
-            {tutor.subjects.map((subject) => (
-              <span
-                key={subject}
-                className="px-3 py-1 text-sm text-purple-700 bg-purple-100 rounded-full"
-              >
-                {subject}
-              </span>
-            ))}
+    <div className="grid grid-cols-1 lg:grid-cols-6 gap-6  mx-auto p-6">
+      {/* Left Column - Profile */}
+      <div className="space-y-6 lg:col-span-2">
+        <Card className="p-6 space-y-3 flex flex-col items-center text-center">
+          <Image
+            src={findUser?.image}
+            alt="Tutor Profile"
+            className="w-24 h-24 rounded-full border"
+            width={300}
+            height={300}
+          />
+          <h1 className="text-2xl font-bold ">{findUser?.name}</h1>
+          <h1 className="l font-bold ">{findUser?.phone}</h1>
+          <div className="text-sm">
+          District:{" "}
+            <span className="flex items-center text-purple-700 bg-green-100 px-3 py-1 rounded-full text-sm">
+            📍 {findUser?.district}
+            </span>
           </div>
-        </div>
+          <div className="text-sm">
+            Preferred Tuition Area:{" "}
+            <div className="space-y-2 ">
+              {findUser?.selectedThanas?.map((thana) => (
+                <h1
+                  className=" text-purple-700 bg-green-100  py-1 rounded-full text-sm text-center"
+                  key={thana}
+                >
+                 📍 {thana}
+                </h1>
+              ))}
+            </div>
+          </div>
 
-        {/* Experience */}
-        <div className="mt-4">
-          <h3 className="text-lg font-semibold text-gray-700">Experience:</h3>
-          <p className="text-gray-600">{tutor.experience}</p>
-        </div>
+          
+        </Card>
+      </div>
 
-        {/* Bio */}
-        <div className="mt-4">
-          <h3 className="text-lg font-semibold text-gray-700">About:</h3>
-          <p className="text-gray-600">{tutor.bio}</p>
-        </div>
-
-        {/* Contact Button */}
-        <div className="mt-6 text-center">
-          <Button className="w-full text-white py-2 rounded-md transition bg-blue-600 hover:bg-blue-700">
-            <a href={`mailto:${tutor.contact}`}>Contact Tutor</a>
-          </Button>
-        </div>
+      {/* Middle Column - Tabs & Details */}
+      <div className="lg:col-span-4  space-y-6">
+      <TutorTabs preferredClasses={preferredClasses} email={findUser?.email}/>
       </div>
     </div>
   );
 };
 
-export default TutorDetails;
+export default TutorProfile;

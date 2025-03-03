@@ -1,6 +1,7 @@
 // "use client";
 
-import { Button } from "@/components/ui/button";
+import Banner from "@/components/module/commonLayout/home/Banner";
+import TutoringJobs from "@/components/module/commonLayout/home/TutoringJobs";
 
 
 // import { useUser } from "@/context/UserContext";
@@ -9,8 +10,9 @@ const HomePage = () => {
   // const user = useUser();
  
   return (
-    <div>
-     <Button>Click Me</Button>
+    <div className="container mx-auto ">
+     <Banner/>
+     <TutoringJobs/>
     </div>
   );
 };

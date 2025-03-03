@@ -19,6 +19,7 @@ export type ITutorInfo = {
     secondaryInstitute?: string;
     secondaryPassingYear?: string;
     secondaryResult?: string;
+    graduationInstitute?:string
   };
   tuition?: {
     tuitionDuration?: string;
