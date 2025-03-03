@@ -43,7 +43,7 @@ export default function Banner() {
 
         {/* Image Section */}
         <div
-          className="w-full relative aspect-video rounded-xl overflow-hidden shadow-xl"
+          className="w-full relative aspect-video rounded-xl overflow-hidden "
           data-aos="fade-left"
         >
           <Image
@@ -52,7 +52,7 @@ export default function Banner() {
             }
             alt="Tutoring illustration"
             fill
-            className="object-cover"
+            className=""
             priority
           />
         </div>

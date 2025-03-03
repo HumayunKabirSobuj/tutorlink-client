@@ -68,14 +68,14 @@ const BrowseTutorsPage = () => {
       </div>
 
       {/* Tutors List */}
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-5 my-5 lg:my-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 my-5 lg:my-10">
         {filteredTutors?.map((tutor) => (
           <div
             key={tutor?._id}
             className="bg-white rounded-lg shadow-lg overflow-hidden w-full"
           >
             <Image
-              className="w-full h-80"
+              className="w-full h-80 p-4 rounded-3xl"
               src={tutor?.image}
               alt="Profile"
               width={500}
