@@ -21,7 +21,7 @@ import { addNeedTutorPost } from "@/services/NeedTutor";
 import { toast } from "sonner";
 
 const AddNeedTutorForm = () => {
-  const { control, register, handleSubmit, watch } = useForm();
+  const { control, register, handleSubmit, watch, reset } = useForm();
   const [users, setUsers] = useState<TGetAllUsers[] | []>([]);
 
   const { user } = useUser();
@@ -60,6 +60,7 @@ const AddNeedTutorForm = () => {
       // console.log(result);
       if (result?.success) {
         toast.success(result?.message);
+        reset();
       } else {
         toast.error(result?.message);
       }

@@ -25,7 +25,7 @@ const JobDetails = async ({ params }: IProps) => {
   // console.log(tutionData);
 
   const user = await getCurrentUser();
-  console.log(user);
+  // console.log(user);
 
   return (
     <div className=" mx-auto bg-white p-6 shadow-md rounded-lg border border-gray-200 my-5">

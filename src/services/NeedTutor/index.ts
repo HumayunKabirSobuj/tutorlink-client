@@ -76,3 +76,25 @@ export const myNeedNeedTutorPost = async (id: string) => {
 };
 
 
+export const deleteNeedNeedTutorPost = async (fieldData: FieldValues) => {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_API}/need-tutor/delete-need-tutor-post`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(fieldData),
+      }
+    );
+
+    const result = await res.json();
+    // console.log(result);
+    return result;
+  } catch (error: any) {
+    return Error(error);
+  }
+};
+
+
