@@ -55,3 +55,24 @@ export const getSingleNeedTutorPost = async (id: string) => {
     return Error(error);
   }
 };
+export const myNeedNeedTutorPost = async (id: string) => {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_API}/need-tutor/my-need-tutor-post/${id}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    const result = await res.json();
+    // console.log(result);
+    return result;
+  } catch (error: any) {
+    return Error(error);
+  }
+};
+
+
