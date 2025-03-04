@@ -45,6 +45,11 @@ export default function Navbar() {
             Home
           </Link>
           
+          <Link href="/tution-jobs" className={`hover:text-blue-600 ${
+                pathname === "/tution-jobs" ? "text-green-500 underline" : ""
+              }`}>
+            Tution Jobs
+          </Link>
           <Link href="/browse-tutors" className={`hover:text-blue-600 ${
                 pathname === "/browse-tutors" ? "text-green-500 underline" : ""
               }`}>

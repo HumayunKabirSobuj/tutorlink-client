@@ -3,6 +3,7 @@
 import * as React from "react";
 import {
   Bot,
+  Pen,
   SquareTerminal,
   User,
 } from "lucide-react";
@@ -64,6 +65,17 @@ const getNavItems = (role: "tutor" | "student") => {
       {
         title: "My Enrollments",
         url: "/student/enrollments",
+        icon: Bot,
+      },
+      
+      {
+        title: "Add Need Tutor Post",
+        url: "/student/add-need-tutor",
+        icon: Pen,
+      },
+      {
+        title: "Manage Need Tutor Post",
+        url: "/student/manage-need-tutor",
         icon: Bot,
       },
     ];
