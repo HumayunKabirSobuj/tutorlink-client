@@ -25,7 +25,7 @@ const TuitionJobs = () => {
     fetchJobs();
   }, []);
 
-  console.table(jobs[0]);
+  // console.table(jobs[0]);
 
   return (
     <div className="flex">

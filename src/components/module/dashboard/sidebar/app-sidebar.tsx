@@ -34,17 +34,18 @@ const getNavItems = (role: "tutor" | "student") => {
       },
       {
         title: "My Courses",
-        url: "/tutor/courses",
+        url: "#",
         icon: Bot,
         items: [
+          {
+            title: "Manage Apply",
+            url: "/tutor/manage-apply-tution",
+          },
           {
             title: "Manage Courses",
             url: "/tutor/courses/manage",
           },
-          {
-            title: "Students",
-            url: "/tutor/students",
-          },
+          
         ],
       },
       {
@@ -67,6 +68,7 @@ const getNavItems = (role: "tutor" | "student") => {
         url: "/student/enrollments",
         icon: Bot,
       },
+
       
       {
         title: "Add Need Tutor Post",

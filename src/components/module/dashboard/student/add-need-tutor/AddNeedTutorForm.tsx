@@ -388,7 +388,7 @@ const AddNeedTutorForm = () => {
 
             {/* Salary Range */}
             <div>
-              <Label>Salary Range</Label>
+              <Label>Salary Per Month</Label>
 
               <Controller
                 name="salaryRange"
@@ -400,14 +400,15 @@ const AddNeedTutorForm = () => {
                     required
                   >
                     <SelectTrigger>
-                      <SelectValue placeholder="Select Salary Range" />
+                      <SelectValue placeholder="Select Salary" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="5000-6000">5000-6000</SelectItem>
-                      <SelectItem value="6000-7000">6000-7000</SelectItem>
-                      <SelectItem value="7000-8000">7000-8000</SelectItem>
-                      <SelectItem value="8000-10000">8000-10000</SelectItem>
-                      <SelectItem value="10000-12500">10000-12500</SelectItem>
+                      <SelectItem value="5000">5000</SelectItem>
+                      <SelectItem value="6000">6000</SelectItem>
+                      <SelectItem value="7000">7000</SelectItem>
+                      <SelectItem value="8000">8000</SelectItem>
+                      <SelectItem value="10000">10000</SelectItem>
+                      <SelectItem value="12000">12000</SelectItem>
                     </SelectContent>
                   </Select>
                 )}

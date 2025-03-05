@@ -9,6 +9,7 @@ import {
 } from "@/services/NeedTutor";
 import { TGetAllUsers } from "@/types";
 import { toast } from "sonner";
+import Link from "next/link";
 
 const TableComponent = () => {
   const [postData, setPostData] = useState<any[]>([]);
@@ -66,8 +67,9 @@ const TableComponent = () => {
         <thead>
           <tr className="bg-gray-100">
             <th className="border p-3 text-left">Heading</th>
-            <th className="border p-3 text-left">Price-Range</th>
+            <th className="border p-3 text-left">Price Per Month</th>
             <th className="border p-3 text-center">Action</th>
+            <th className="border p-3 text-center">Applications</th>
           </tr>
         </thead>
         <tbody>
@@ -89,6 +91,15 @@ const TableComponent = () => {
                     onClick={() => handleDelete(item?._id)}
                   >
                     Delete
+                  </Button>
+                </td>
+                <td className="border p-3 text-center">
+                  <Button
+                    variant="outline"
+                    className="px-3 py-1 rounded-full"
+                   
+                  >
+                    <Link href={`/student/manage-need-tutor/${item?._id}`}>View Tutors</Link>
                   </Button>
                 </td>
               </tr>

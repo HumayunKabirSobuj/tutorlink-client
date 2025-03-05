@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+"use client";
+
+import { use, useEffect, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -7,35 +11,86 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { getCurrentUser } from "@/services/AuthService";
-
+import { getAllUser, getCurrentUser } from "@/services/AuthService";
 import { getSingleNeedTutorPost } from "@/services/NeedTutor";
-import { ITuitionJob } from "@/types";
+import { ITuitionJob, TGetAllUsers } from "@/types";
 import Link from "next/link";
+import { ApplyNeedTutorPost } from "@/services/ApplyNeedTutorPost";
+import { toast } from "sonner";
 
 interface IProps {
   params: Promise<{
     id: string;
   }>;
 }
-const JobDetails = async ({ params }: IProps) => {
-  const { id } = await params;
-  const { data } = await getSingleNeedTutorPost(id);
-  const tutionData: ITuitionJob = data;
-  // console.log(tutionData);
 
-  const user = await getCurrentUser();
-  // console.log(user);
+const JobDetails = ({ params }: IProps) => {
+  const { id } = use(params); // use() দিয়ে params resolve করা হয়েছে
+  const [tutionData, setTutionData] = useState<ITuitionJob | null>(null);
+  const [user, setUser] = useState<any>(null);
+  const [allUser, setAllUser] = useState<TGetAllUsers[] | []>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [tutionResponse, userResponse, allUser] = await Promise.all([
+          getSingleNeedTutorPost(id),
+          getCurrentUser(),
+          getAllUser(),
+        ]);
+
+        console.log(allUser);
+
+        setTutionData(tutionResponse.data);
+        setUser(userResponse);
+        setAllUser(allUser?.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, [id]);
+
+  // console.log(allUser);
+
+  const findCurrentUser = allUser.find(
+    (singleUser) => singleUser?.email === user?.email
+  );
+
+  console.log(findCurrentUser);
+
+  const handleApply = async (tutionData: any) => {
+    console.log(tutionData);
+    const modifiedData = {
+      tutionId: tutionData?._id,
+      studentId: tutionData?.studentId?._id,
+      tutorId: findCurrentUser?._id,
+    };
+
+    // console.log(modifiedData);
+
+    try {
+      const result = await ApplyNeedTutorPost(modifiedData);
+      // console.log(result);
+      if (result?.success) {
+        toast.success(result?.message);
+      } else {
+        toast.error(result?.message);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
-    <div className=" mx-auto bg-white p-6 shadow-md rounded-lg border border-gray-200 my-5">
+    <div className="mx-auto bg-white p-6 shadow-md rounded-lg border border-gray-200 my-5">
       <h2 className="text-xl font-bold text-center text-blue-700 mb-2">
         {tutionData?.heading}
       </h2>
       <p className="text-center text-gray-600 text-sm">
         Job ID : {tutionData?._id.slice(-6)} &nbsp;
       </p>
-
       <p className="text-center text-gray-700 mt-2 font-medium">
         📍 {tutionData?.area}
       </p>
@@ -74,11 +129,14 @@ const JobDetails = async ({ params }: IProps) => {
           </DialogContent>
         </Dialog>
       </div>
-     {
-      user && user?.role ==="tutor" &&  <div className="text-center my-4">
-      <Button variant={"outline"}>Apply</Button>
-    </div>
-     }
+
+      {user && user?.role === "tutor" && (
+        <div className="text-center my-4">
+          <Button variant="outline" onClick={() => handleApply(tutionData)}>
+            Apply
+          </Button>
+        </div>
+      )}
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mt-4 text-sm text-gray-700">
         <p>
@@ -114,8 +172,6 @@ const JobDetails = async ({ params }: IProps) => {
             {tutionData?.subject}
           </span>
         </div>
-
-        <div></div>
       </div>
 
       <div className="mt-4">
@@ -126,10 +182,7 @@ const JobDetails = async ({ params }: IProps) => {
         </p>
       </div>
 
-      <Link
-        href={"/tution-jobs"}
-        className="w-full   text-white py-2 mt-4 rounded text-sm"
-      >
+      <Link href={"/tution-jobs"}>
         <Button className="w-full my-10">← Go Back To All Jobs</Button>
       </Link>
     </div>
