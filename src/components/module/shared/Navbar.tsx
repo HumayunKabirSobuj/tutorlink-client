@@ -28,7 +28,9 @@ export default function Navbar() {
   const pathname = usePathname();
 
   return (
-    <nav className="bg-white shadow-md px-6 py-4 sticky top-0 w-full z-50">
+    
+    // <nav className="bg-white shadow-md px-6 py-4 sticky top-0 w-full z-50">
+    <nav className="fixed top-0 left-0 w-full z-50 backdrop-blur-sm bg-white/0 transition-colors duration-300 hover:bg-white/100">
       <div className="container mx-auto flex justify-between items-center">
         {/* Logo */}
         <Link href="/">

@@ -30,7 +30,7 @@ export default function Banner() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
         {/* Text Section */}
         <div className="text-center md:text-left" data-aos="fade-right">
-          <h1 className="text-5xl font-extrabold text-gray-900 mb-4">
+          <h1 className="text-5xl font-extrabold text-gray-900 mb-4 mt-10 lg:mt-0">
             Best Tutoring Platform
           </h1>
           <p className="text-lg text-gray-600 mb-8 tracking-wide">

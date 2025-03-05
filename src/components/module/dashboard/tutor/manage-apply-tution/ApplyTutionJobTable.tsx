@@ -87,7 +87,7 @@ const ApplyTutionJobTable = ({ tutorsData }: { tutorsData: any[] }) => {
                 </td>
 
                 <td className="border p-3 text-center">{item?.selectStatus}</td>
-                <td className="border p-3 text-center">{item?.selectStatus}</td>
+                <td className="border p-3 text-center">{item?.paymentStatus}</td>
                 <td className="border p-3 text-center">
                     <Button className="rounded-full" variant={"outline"}>Delete</Button>
                 </td>
