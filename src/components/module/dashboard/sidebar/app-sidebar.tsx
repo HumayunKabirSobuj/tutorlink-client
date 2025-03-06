@@ -49,6 +49,22 @@ const getNavItems = (role: "tutor" | "student") => {
         ],
       },
       {
+        title: "My Tutions Posts",
+        url: "#",
+        icon: Bot,
+        items: [
+          {
+            title: "Create Tution Post",
+            url: "/tutor/create-tution-post",
+          },
+          {
+            title: "Manage Tution Post",
+            url: "/tutor/manage-tution-post",
+          },
+          
+        ],
+      },
+      {
         title: "Update Profile",
         url: "/tutor/update-profile",
         icon: User,

@@ -74,7 +74,7 @@ const AddNeedTutorForm = () => {
   return (
     <Card className="mx-auto">
       <CardHeader>
-        <CardTitle>Student Details</CardTitle>
+        <CardTitle>Need Tutor</CardTitle>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit(onSubmit)}>

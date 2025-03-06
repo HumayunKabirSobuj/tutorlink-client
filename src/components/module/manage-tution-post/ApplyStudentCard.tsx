@@ -2,18 +2,17 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { setTutorSelected } from "@/services/ApplyNeedTutorPost";
-import { makeNeedTutionOrder } from "@/services/MakeOrder";
+import { setTutorSelected } from "@/services/ApplyNeedTutorPost";import { setStudentSelected } from "@/services/ApplyTutoringPost";
 import { CheckCircle } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { toast } from "sonner";
 
-const ApplyTutorCard = ({ tutorsData }: { tutorsData: any[] }) => {
-  //   console.log("tutorsData:", Array.isArray(tutorsData), tutorsData);
+const ApplyStudentCard = ({ studentsData }: { studentsData: any[] }) => {
+  //   console.log("studentsData:", Array.isArray(studentsData), studentsData);
 
-  if (!Array.isArray(tutorsData) || tutorsData.length === 0) {
+  if (!Array.isArray(studentsData) || studentsData.length === 0) {
     return (
       <p className="text-center text-red-500 font-semibold mt-5">
         No Data Available
@@ -29,7 +28,7 @@ const ApplyTutorCard = ({ tutorsData }: { tutorsData: any[] }) => {
 
     // console.log(modifiedData);
     try {
-      const result = await setTutorSelected(id, modifiedData);
+      const result = await setStudentSelected(id, modifiedData);
       // console.log(result);
       if (result?.success) {
         toast.success(result?.message);
@@ -41,74 +40,49 @@ const ApplyTutorCard = ({ tutorsData }: { tutorsData: any[] }) => {
     }
   };
 
-  const alreadySelectedTutor = tutorsData.find(
+  const alreadySelectedTutor = studentsData.find(
     (tutor) => tutor?.selectStatus === "Selected"
   );
 
   // console.log(alreadySelectedTutor);
 
-  const handleMakePayment = async (id: string) => {
-    // console.log(id);
-    const modifiedData = {
-      id: id,
-    };
-
-    // console.log(modifiedData);
-    const result = await makeNeedTutionOrder(modifiedData);
-    console.log(result);
-    window.location.replace(result.url);
-  };
-
+  
   return (
     <div>
       <h1 className="text-center text-2xl my-5 font-bold">Applicant Here</h1>
       <div className="grid grid-cols-1  lg:grid-cols-3 gap-5">
-        {tutorsData.map((tutor) => (
+        {studentsData.map((tutor) => (
           <Card
             key={tutor._id}
             className="p-4 shadow-lg rounded-2xl text-center"
           >
             <Image
-              src={tutor?.tutorId?.image}
-              alt={tutor?.tutorId?.name}
+              src={tutor?.studentId?.image}
+              alt={tutor?.studentId?.name}
               width={96}
               height={96}
               priority
               className="mx-auto h-24 w-24 rounded-full border-2 border-gray-300"
             />
             <CardContent className="mt-4">
-              <h2 className="text-lg font-semibold">{tutor?.tutorId?.name}</h2>
-              <p className="text-gray-600">{tutor?.tutorId?.role}</p>
-              <p className="text-sm text-gray-500">{tutor?.tutorId?.email}</p>
-              <p className="text-sm text-gray-500">{tutor?.tutorId?.phone}</p>
+              <h2 className="text-lg font-semibold">{tutor?.studentId?.name}</h2>
+              <p className="text-gray-600">{tutor?.studentId?.role}</p>
+              <p className="text-sm text-gray-500">{tutor?.studentId?.email}</p>
+              <p className="text-sm text-gray-500">{tutor?.studentId?.phone}</p>
               <p className="text-sm text-gray-500">
                 {tutor?.tutorId?.thana}, {tutor?.tutorId?.district}
               </p>
               <div className="mt-4  flex items-center gap-2">
-                <Button className="flex-1 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md">
-                  <Link href={`/browse-tutors/${tutor?.tutorId?._id}`}>
-                    View Profile
-                  </Link>
-                </Button>
+               
                 <div className="flex-1">
                 {tutor?.selectStatus === "Selected" ? (
                   <div>
-                    {tutor?.paymentStatus === "Done" ? (
-                      <Button
-                  
-                        className="bg-green-500 text-white px-4 py-2 rounded-lg flex items-center gap-2 cursor-not-allowed"
-                      >
-                        <CheckCircle size={18} />
-                        Already Paid
-                      </Button>
-                    ) : (
-                      <Button
-                        onClick={() => handleMakePayment(tutor?._id)}
+                    <Button
+                        
                         className="flex-1 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md"
                       >
-                        Make Payment
+                      <CheckCircle/>  Already Selected
                       </Button>
-                    )}
                   </div>
                 ) : (
                   <div>
@@ -132,4 +106,4 @@ const ApplyTutorCard = ({ tutorsData }: { tutorsData: any[] }) => {
   );
 };
 
-export default ApplyTutorCard;
+export default ApplyStudentCard;

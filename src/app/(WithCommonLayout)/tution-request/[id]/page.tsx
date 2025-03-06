@@ -12,11 +12,11 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { getAllUser, getCurrentUser } from "@/services/AuthService";
-import { getSingleNeedTutorPost } from "@/services/NeedTutor";
-import { ITuitionJob, TGetAllUsers } from "@/types";
+import {  TGetAllUsers } from "@/types";
 import Link from "next/link";
-import { ApplyNeedTutorPost } from "@/services/ApplyNeedTutorPost";
 import { toast } from "sonner";
+import { ApplyTutoringPost, getSingleTutoringPost } from "@/services/TutoringPost";
+import { ITuitionRequest } from "@/types/TutionRequest";
 
 interface IProps {
   params: Promise<{
@@ -26,7 +26,7 @@ interface IProps {
 
 const JobDetails = ({ params }: IProps) => {
   const { id } = use(params); // use() দিয়ে params resolve করা হয়েছে
-  const [tutionData, setTutionData] = useState<ITuitionJob | null>(null);
+  const [tutionData, setTutionData] = useState<ITuitionRequest | null>(null);
   const [user, setUser] = useState<any>(null);
   const [allUser, setAllUser] = useState<TGetAllUsers[] | []>([]);
 
@@ -34,12 +34,12 @@ const JobDetails = ({ params }: IProps) => {
     const fetchData = async () => {
       try {
         const [tutionResponse, userResponse, allUser] = await Promise.all([
-          getSingleNeedTutorPost(id),
+          getSingleTutoringPost(id),
           getCurrentUser(),
           getAllUser(),
         ]);
 
-        console.log(allUser);
+        // console.log(allUser);
 
         setTutionData(tutionResponse.data);
         setUser(userResponse);
@@ -58,20 +58,20 @@ const JobDetails = ({ params }: IProps) => {
     (singleUser) => singleUser?.email === user?.email
   );
 
-  console.log(findCurrentUser);
+  // console.log(findCurrentUser);
 
   const handleApply = async (tutionData: any) => {
-    console.log(tutionData);
+    // console.log(tutionData);
     const modifiedData = {
       tutionId: tutionData?._id,
-      studentId: tutionData?.studentId?._id,
-      tutorId: findCurrentUser?._id,
+      tutorId: tutionData?.tutorId?._id,
+      studentId: findCurrentUser?._id,
     };
 
-    // console.log(modifiedData);
+    console.log(modifiedData);
 
     try {
-      const result = await ApplyNeedTutorPost(modifiedData);
+      const result = await ApplyTutoringPost(modifiedData);
       // console.log(result);
       if (result?.success) {
         toast.success(result?.message);
@@ -97,17 +97,17 @@ const JobDetails = ({ params }: IProps) => {
       <div className="text-center my-4">
         <Dialog>
           <DialogTrigger asChild>
-            <Button variant="outline">Student Info</Button>
+            <Button variant="outline">Tutor Info</Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-[425px] p-4">
             <DialogHeader>
-              <DialogTitle className="text-center">Student Profile</DialogTitle>
+              <DialogTitle className="text-center">Tutor Profile</DialogTitle>
             </DialogHeader>
             <div className="text-center mx-auto">
               <Avatar className="h-16 w-16 mx-auto">
                 <AvatarImage
                   src={
-                    tutionData?.studentId?.image ||
+                    tutionData?.tutorId?.image ||
                     "https://github.com/shadcn.png"
                   }
                 />
@@ -115,22 +115,22 @@ const JobDetails = ({ params }: IProps) => {
               </Avatar>
               <p>
                 <span className="font-bold">Name:</span>{" "}
-                {tutionData?.studentId?.name || "N/A"}
+                {tutionData?.tutorId?.name || "N/A"}
               </p>
               <p>
                 <span className="font-bold">Email:</span>{" "}
-                {tutionData?.studentId?.email || "N/A"}
+                {tutionData?.tutorId?.email || "N/A"}
               </p>
               <p>
                 <span className="font-bold">Phone:</span>{" "}
-                {tutionData?.studentId?.phone || "N/A"}
+                {tutionData?.tutorId?.phone || "N/A"}
               </p>
             </div>
           </DialogContent>
         </Dialog>
       </div>
 
-      {user && user?.role === "tutor" && (
+      {user && user?.role === "student" && (
         <div className="text-center my-4">
           <Button variant="outline" onClick={() => handleApply(tutionData)}>
             Apply
@@ -148,9 +148,7 @@ const JobDetails = ({ params }: IProps) => {
         <p>
           <strong>👦 Student Gender:</strong> {tutionData?.studentGender}
         </p>
-        <p>
-          <strong>👨‍🏫 Preferred Tutor:</strong> {tutionData?.teacherGender}
-        </p>
+
         <p>
           <strong>📅 Tutoring Days:</strong> {tutionData?.daysPerWeek}
         </p>
@@ -182,8 +180,8 @@ const JobDetails = ({ params }: IProps) => {
         </p>
       </div>
 
-      <Link href={"/tution-jobs"}>
-        <Button className="w-full my-10">← Go Back To All Jobs</Button>
+      <Link href={"/tution-request"}>
+        <Button className="w-full my-10">← Go Back To All Tution Request</Button>
       </Link>
     </div>
   );
