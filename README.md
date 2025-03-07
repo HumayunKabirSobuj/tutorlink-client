@@ -24,12 +24,15 @@ https://tutorlink-online.vercel.app
 ## 🚀 Tech Stack  
 ### **Frontend:**  
 - ⚡ **Next.js 15** – SEO-friendly & optimized for performance  
-- 🎨 **TypeScript + Tailwind CSS + Shadcn/ui** – Modern, responsive UI  
+- 🎨 **TypeScript + Tailwind CSS** – Modern, responsive UI  
 
+### **Backend:**  
+- 🔧 **Node.js + Express.js** – Scalable REST API  
+- 🗄️ **MongoDB + Mongoose** – NoSQL database  
+- 🔐 **JWT + bcrypt** – Secure authentication  
 
 ### **Payment Integration:**  
-- 💳 **SSLCommerz  
-
+- 💳 **SSLCommerz / Stripe / PayPal** 
 
 
 
