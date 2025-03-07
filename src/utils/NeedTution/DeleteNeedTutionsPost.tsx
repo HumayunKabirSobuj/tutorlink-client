@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import React from "react";
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const DeleteNeedTutionsPost = (id:any) => {
     // console.log(id);
   return (

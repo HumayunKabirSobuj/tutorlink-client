@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FieldValues } from "react-hook-form";
 
 export const addNeedTutorPost = async (fieldData: FieldValues) => {

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { getAllTutorInfo } from "@/services/TutorInfoUpdate";
 import { ITutorInfo } from "@/types";
 import { useState, useEffect } from "react";

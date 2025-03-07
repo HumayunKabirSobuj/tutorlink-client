@@ -5,7 +5,7 @@ export const makeNeedTutionOrder = async (fieldData: FieldValues) => {
     // console.log("use server",fieldData);
   try {
     const res = await fetch(
-      `http://localhost:8080/order`,
+      `https://tutorlink-backend.vercel.app/order`,
       {
         method: "POST",
         headers: {
@@ -26,7 +26,7 @@ export const makeTutoringPostOrder = async (fieldData: FieldValues) => {
     // console.log("use server",fieldData);
   try {
     const res = await fetch(
-      `http://localhost:8080/tutoring-order`,
+      `https://tutorlink-backend.vercel.app/tutoring-order`,
       {
         method: "POST",
         headers: {
