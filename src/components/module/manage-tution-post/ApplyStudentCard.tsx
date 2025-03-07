@@ -2,10 +2,9 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { setTutorSelected } from "@/services/ApplyNeedTutorPost";import { setStudentSelected } from "@/services/ApplyTutoringPost";
+import { setStudentSelected } from "@/services/ApplyTutoringPost";
 import { CheckCircle } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 import React from "react";
 import { toast } from "sonner";
 

@@ -80,6 +80,19 @@ const getNavItems = (role: "tutor" | "student") => {
         isActive: true,
       },
       {
+        title: "My Applies",
+        url: "#",
+        icon: Bot,
+        items: [
+          {
+            title: "Manage Apply",
+            url: "/student/manage-apply",
+          },
+          
+          
+        ],
+      },
+      {
         title: "My Enrollments",
         url: "/student/enrollments",
         icon: Bot,

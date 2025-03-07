@@ -96,6 +96,7 @@ const ManageTutionsPost = () => {
                 <td className="border p-3 text-center">
                   <Button
                     variant="outline"
+                    disabled={item?.paidStatus==="Done"}
                     className="px-3 py-1 rounded-full"
                     onClick={() => handleDelete(item?._id)}
                   >
