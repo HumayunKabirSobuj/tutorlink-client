@@ -58,7 +58,7 @@ const JobDetails = ({ params }: IProps) => {
     (singleUser) => singleUser?.email === user?.email
   );
 
-  console.log(findCurrentUser);
+  // console.log(findCurrentUser);
 
   const handleApply = async (tutionData: any) => {
     console.log(tutionData);

@@ -65,6 +65,22 @@ const getNavItems = (role: "tutor" | "student") => {
         ],
       },
       {
+        title: "Blog Management",
+        url: "#",
+        icon: Bot,
+        items: [
+          {
+            title: "Create Blog",
+            url: "/tutor/create-blog",
+          },
+          {
+            title: "Manage Blog",
+            url: "/tutor/manage-blog",
+          },
+          
+        ],
+      },
+      {
         title: "Update Profile",
         url: "/tutor/update-profile",
         icon: User,
