@@ -25,7 +25,7 @@ const ManageTutionsPost = () => {
           (singleUser: TGetAllUsers) => singleUser?.email === user?.email
         );
 
-        console.log(currentUser);
+        // console.log(currentUser);
 
         if (currentUser?._id) {
           const { data } = await tutorTutoringPost(currentUser._id);
@@ -41,7 +41,7 @@ const ManageTutionsPost = () => {
     fetchData();
   }, []);
 
-  console.log(postData);
+  // console.log(postData);
 
   const handleDelete = async (id: string) => {
     try {

@@ -20,7 +20,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useUser } from "@/context/UserContext";
-import useTutorInfo from "@/hooks/useTutorInfo";
 import { updateTurorInfo } from "@/services/TutorInfoUpdate";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useState } from "react";
@@ -30,7 +29,6 @@ import { z } from "zod";
 
 const EducationalInfoForm = () => {
   const { user } = useUser();
-  const { filteredTutor } = useTutorInfo(user?.email as string);
 
   const [isEditable, setIsEditable] = useState(false);
 
@@ -48,7 +46,7 @@ const EducationalInfoForm = () => {
     secondaryResult: z.string(),
   });
 
-  console.log(filteredTutor[0]?.education?.graduationCurriculum);
+  // console.log(filteredTutor[0]?.education?.graduationCurriculum);
 
   const form = useForm({
     resolver: zodResolver(EducationSchema),

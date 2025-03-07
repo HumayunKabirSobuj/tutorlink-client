@@ -39,7 +39,7 @@ const JobDetails = ({ params }: IProps) => {
           getAllUser(),
         ]);
 
-        console.log(allUser);
+        // console.log(allUser);
 
         setTutionData(tutionResponse.data);
         setUser(userResponse);

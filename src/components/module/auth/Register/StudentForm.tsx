@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { Button } from "@/components/ui/button";
@@ -81,7 +82,7 @@ const StudentForm = () => {
       // console.log({ studentData });
 
       const result = await regiterStudent(studentData);
-      console.log(result);
+      // console.log(result);
       if (result?.success) {
         toast.success(result.message);
         router.push("/login");

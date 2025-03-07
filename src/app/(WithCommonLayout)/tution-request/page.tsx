@@ -12,7 +12,7 @@ const TuitionJobs = () => {
     const fetchJobs = async () => {
       try {
         const data = await getAllTutoringPost();
-        console.log("Fetched Data:", data);
+        // console.log("Fetched Data:", data);
         const jobList = Array.isArray(data) ? data : data?.data || [];
         setJobs(jobList);
       } catch (error) {

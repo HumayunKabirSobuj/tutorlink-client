@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/dialog";
 
 const ApplyTutionJobTable = ({ tutorsData }: { tutorsData: any[] }) => {
-  console.log(tutorsData);
+  // console.log(tutorsData);
   if (!Array.isArray(tutorsData) || tutorsData.length === 0) {
     return (
       <p className="text-center text-red-500 font-semibold mt-5">

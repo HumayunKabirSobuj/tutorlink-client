@@ -22,7 +22,7 @@ const TutorTabs = ({  email }: TutorTabsProps) => {
   const { filteredTutor } = useTutorInfo(email as string);
 
   const tutorInfo: ITutorInfo = filteredTutor[0];
-  console.log(tutorInfo);
+  // console.log(tutorInfo);
 
   return (
     <Tabs defaultValue="education" className="w-full">

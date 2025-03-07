@@ -55,7 +55,7 @@ const TutorForm = () => {
       // console.log(data);
 
       const image = data.image;
-      console.log(image);
+      // console.log(image);
       const newFormData = new FormData();
       newFormData.append("file", image); // Add the image file
       newFormData.append(
@@ -91,7 +91,7 @@ const TutorForm = () => {
 
       // console.log({ tutorData });
       const result = await registerTutor(tutorData);
-      console.log(result);
+      // console.log(result);
       if (result?.success) {
         toast.success(result.message);
         router.push("/login");

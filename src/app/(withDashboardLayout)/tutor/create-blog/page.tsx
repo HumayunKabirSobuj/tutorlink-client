@@ -35,7 +35,7 @@ export default function AddBlog() {
           getAllUser(),
         ]);
 
-        console.log(allUser);
+        // console.log(allUser);
 
         setUser(userResponse);
         setAllUser(allUser?.data);
@@ -97,7 +97,7 @@ export default function AddBlog() {
         tutorId: findCurrentUser?._id,
       };
 
-      console.log(blogData);
+      // console.log(blogData);
       const res = await addBlog(blogData);
       // console.log(res);
       if (res?.success) {

@@ -16,7 +16,6 @@ const BrowseTutorsPage = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       const response = await getAllUser();
-      console.log("Fetched Users:", response);
 
       // Ensure response.data exists and is an array
       const users = Array.isArray(response.data) ? response.data : [];

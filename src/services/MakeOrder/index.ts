@@ -2,7 +2,7 @@
 import { FieldValues } from "react-hook-form";
 
 export const makeNeedTutionOrder = async (fieldData: FieldValues) => {
-    console.log("use server",fieldData);
+    // console.log("use server",fieldData);
   try {
     const res = await fetch(
       `http://localhost:8080/order`,
@@ -23,7 +23,7 @@ export const makeNeedTutionOrder = async (fieldData: FieldValues) => {
   }
 };
 export const makeTutoringPostOrder = async (fieldData: FieldValues) => {
-    console.log("use server",fieldData);
+    // console.log("use server",fieldData);
   try {
     const res = await fetch(
       `http://localhost:8080/tutoring-order`,

@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import React from "react";
 
 const DeleteNeedTutionsPost = (id:any) => {
-    console.log(id);
+    // console.log(id);
   return (
     <div>
       <Button variant="outline" className="px-3 py-1 rounded-full">

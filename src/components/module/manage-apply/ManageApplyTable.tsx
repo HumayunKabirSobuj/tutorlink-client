@@ -13,7 +13,7 @@ import { makeTutoringPostOrder } from "@/services/MakeOrder";
 import React from "react";
 
 const ManageApplyTable = ({ studentsData }: { studentsData: any[] }) => {
-    console.log(studentsData);
+    // console.log(studentsData);
 
   const handleMakePayment = async (id: string) => {
     // console.log(id);
@@ -21,7 +21,7 @@ const ManageApplyTable = ({ studentsData }: { studentsData: any[] }) => {
       id: id,
     };
 
-    console.log(modifiedData);
+    // console.log(modifiedData);
     const result = await makeTutoringPostOrder(modifiedData);
     // console.log(result);
     window.location.replace(result.url);

@@ -55,7 +55,7 @@ const ApplyTutorCard = ({ tutorsData }: { tutorsData: any[] }) => {
 
     // console.log(modifiedData);
     const result = await makeNeedTutionOrder(modifiedData);
-    console.log(result);
+    // console.log(result);
     window.location.replace(result.url);
   };
 

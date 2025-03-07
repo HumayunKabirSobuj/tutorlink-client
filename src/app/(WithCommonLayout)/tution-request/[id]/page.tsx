@@ -68,7 +68,7 @@ const JobDetails = ({ params }: IProps) => {
       studentId: findCurrentUser?._id,
     };
 
-    console.log(modifiedData);
+    // console.log(modifiedData);
 
     try {
       const result = await ApplyTutoringPost(modifiedData);
