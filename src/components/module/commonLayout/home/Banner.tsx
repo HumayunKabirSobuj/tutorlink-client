@@ -59,8 +59,8 @@ export default function Banner() {
       </div>
 
       {/* Marquee Section */}
-      <div className="my-5">
-        <Marquee pauseOnHover={true} gradient={false} speed={80}>
+      <div className="my-5 lg:block hidden">
+        <Marquee pauseOnHover={true} gradient={false} speed={80} >
           <div className="flex space-x-4">
             {tutors.map((tutor, index) => (
               <div

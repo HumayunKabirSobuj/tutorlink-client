@@ -6,8 +6,8 @@ type Role = keyof typeof roleBasedPrivateRoutes;
 const authRoutes = ["/login", "/register"];
 
 const roleBasedPrivateRoutes = {
-  user: [/^\/user/, /^\/create-shop/],
-  admin: [/^\/admin/],
+  student: [/^\/student/],
+  tutor: [/^\/tutor/],
 };
 
 export const middleware = async (request: NextRequest) => {
@@ -21,7 +21,7 @@ export const middleware = async (request: NextRequest) => {
     } else {
       return NextResponse.redirect(
         new URL(
-          `http://localhost:3000/login?redirectPath=${pathname}`,
+          `https://tutorlink-online.vercel.app/login`,
           request.url
         )
       );
@@ -38,11 +38,9 @@ export const middleware = async (request: NextRequest) => {
 
 export const config = {
   matcher: [
-    "/login",
-    "/create-shop",
-    "/admin",
-    "/admin/:pages",
-    "/user",
-    "/user/:pages",
+    "/tutor",
+    "/tutor/:pages",
+    "/student",
+    "/student/:pages",
   ],
 };

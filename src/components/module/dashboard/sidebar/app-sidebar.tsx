@@ -42,8 +42,8 @@ const getNavItems = (role: "tutor" | "student") => {
             url: "/tutor/manage-apply-tution",
           },
           {
-            title: "Manage Courses",
-            url: "/tutor/courses/manage",
+            title: "Show All Students",
+            url: "/tutor/students",
           },
           
         ],

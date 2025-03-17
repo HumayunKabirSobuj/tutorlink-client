@@ -12,11 +12,7 @@ interface IProps {
 }
 
 const TutorProfile = async ({ params }: IProps) => {
-  const preferredClasses = [
-    "Class 9 (Bangla Medium)",
-    "Class 8 (English Version)",
-    "HSC (Science)",
-  ];
+
 
   const data = await params; // Promise resolve করলাম
   const tutorId = data?.tutorId;
@@ -74,7 +70,7 @@ const TutorProfile = async ({ params }: IProps) => {
 
       {/* Middle Column - Tabs & Details */}
       <div className="lg:col-span-4  space-y-6">
-      <TutorTabs preferredClasses={preferredClasses} email={findUser?.email}/>
+      <TutorTabs  email={findUser?.email}/>
       </div>
     </div>
   );

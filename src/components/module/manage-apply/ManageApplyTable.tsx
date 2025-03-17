@@ -13,7 +13,7 @@ import { makeTutoringPostOrder } from "@/services/MakeOrder";
 import React from "react";
 
 const ManageApplyTable = ({ studentsData }: { studentsData: any[] }) => {
-    // console.log(studentsData);
+  // console.log(studentsData);
 
   const handleMakePayment = async (id: string) => {
     // console.log(id);
@@ -90,26 +90,24 @@ const ManageApplyTable = ({ studentsData }: { studentsData: any[] }) => {
                 <td className="border p-3 text-center">
                   {item?.paymentStatus}
                 </td>
-                <td className="border p-3 text-center flex gap-2 items-center">
-                  {item?.selectStatus === "Selected" && (
-                    <Button
-                      onClick={() => handleMakePayment(item?._id)}
-                      className="flex-1 rounded-full"
-                    >
-                      Make Payment
-                    </Button>
-                  )}
-                  {item?.paymentStatus === "Done" && (
-                    <Button className="flex-1 rounded-full">
-                      Already Paid
-                    </Button>
-                  )}
-                  <Button
-                    disabled={item?.paymentStatus === "Done"}
-                    className="flex-1 rounded-full"
-                  >
-                    Delete
-                  </Button>
+                <td className="border p-3 text-center ">
+
+                            {
+                              (item?.paymentStatus==="Not_Pay" && item?.selectStatus === "Selected" ) &&<Button
+                              onClick={() => handleMakePayment(item?._id)}
+                              className="flex-1 rounded-full"
+                            >
+                              Make Payment
+                            </Button>
+                            }
+                            {
+                              (item?.paymentStatus==="Done" && item?.selectStatus === "Selected" ) && <Button className="flex-1 rounded-full">
+                              Already Paid
+                            </Button>
+                            }
+                            
+
+                 
                 </td>
               </tr>
             ))}

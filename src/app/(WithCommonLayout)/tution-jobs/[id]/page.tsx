@@ -61,7 +61,7 @@ const JobDetails = ({ params }: IProps) => {
   // console.log(findCurrentUser);
 
   const handleApply = async (tutionData: any) => {
-    console.log(tutionData);
+    // console.log(tutionData);
     const modifiedData = {
       tutionId: tutionData?._id,
       studentId: tutionData?.studentId?._id,
@@ -92,7 +92,7 @@ const JobDetails = ({ params }: IProps) => {
         Job ID : {tutionData?._id.slice(-6)} &nbsp;
       </p>
       <p className="text-center text-gray-700 mt-2 font-medium">
-        📍 {tutionData?.area}
+        📍 {tutionData?.district} , {tutionData?.area}
       </p>
       <div className="text-center my-4">
         <Dialog>

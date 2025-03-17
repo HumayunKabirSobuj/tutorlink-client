@@ -10,7 +10,7 @@ const PaymentCancelled = () => {
         <p className="text-gray-600 mt-2">Your payment was not completed. Please try again or contact support.</p>
         
         <div className="mt-6">
-          <Link href="/checkout">
+          <Link href="/student/dashboard">
             <button className="px-6 py-3 bg-red-500 text-white rounded-lg shadow hover:bg-red-600 transition">
               Back to Dashboard
             </button>

@@ -119,3 +119,26 @@ export const tutorTutoringPost = async (id: string) => {
     return Error(error);
   }
 };
+
+
+export const deleteTutoringPost = async (fieldData: FieldValues) => {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_API}/tutoring-post/delete-tutoring-post`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(fieldData),
+      }
+    );
+
+    const result = await res.json();
+    // console.log(result);
+    return result;
+  } catch (error: any) {
+    return Error(error);
+  }
+};
+

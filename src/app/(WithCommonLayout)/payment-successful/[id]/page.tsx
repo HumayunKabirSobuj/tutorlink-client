@@ -10,7 +10,7 @@ const PaymentSuccess = () => {
         <p className="text-gray-600 mt-2">Thank you for your purchase. Your transaction has been completed successfully.</p>
         
         <div className="mt-6">
-          <Link href="/dashboard">
+          <Link href="/student/dashboard">
             <button className="px-6 py-3 bg-blue-500 text-white rounded-lg shadow hover:bg-blue-600 transition">
               Go to Dashboard
             </button>

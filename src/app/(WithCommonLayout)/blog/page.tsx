@@ -1,14 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { getAllBlog } from "@/services/Blogs";
-import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { FaExternalLinkSquareAlt } from "react-icons/fa";
 
-export const metadata: Metadata = {
-  title: "HUMAYUN | Blog",
-};
+
 
 const BlogPage = async () => {
   const blogs = await getAllBlog();

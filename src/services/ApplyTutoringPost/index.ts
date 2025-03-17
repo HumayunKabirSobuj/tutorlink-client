@@ -52,3 +52,44 @@ export const getStudentApply = async (id: string) => {
     return Error(error);
   }
 };
+
+
+export const studentTutoringEnrollCourse = async (id: string) => {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_API}/apply-tutoring-request/get-student-enroll-course/${id}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const result = await res.json();
+    // console.log(result);
+    return result;
+  } catch (error: any) {
+    return Error(error);
+  }
+};
+
+
+
+export const getTutorSellCourseForApplyTutoringPost = async (id: string) => {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_API}/apply-tutoring-request/get-tutor-sell-course/${id}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const result = await res.json();
+    // console.log(result);
+    return result;
+  } catch (error: any) {
+    return Error(error);
+  }
+};

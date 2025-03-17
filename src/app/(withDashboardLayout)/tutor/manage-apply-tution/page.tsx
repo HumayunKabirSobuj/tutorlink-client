@@ -19,7 +19,7 @@ const ManageApplyTution = async () => {
 
   const applyPost = await getTutorApply(currentUser?._id);
 
-//   console.log(applyPost);
+  // console.log(applyPost);
   return (
     <div>
       <h1 className="text-center text-xl font-bold">Manage Tution Job Application</h1>

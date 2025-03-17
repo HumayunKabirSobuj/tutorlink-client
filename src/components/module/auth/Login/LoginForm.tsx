@@ -24,6 +24,7 @@ import { LoginFormSchema } from "./LoginFormSchema";
 import { loginUser } from "@/services/AuthService";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { useUser } from "@/context/UserContext";
 
 export function LoginForm({
   className,
@@ -34,12 +35,16 @@ export function LoginForm({
     resolver: zodResolver(LoginFormSchema),
   });
 
+  const { setIsLoading } = useUser();
+
   async function onSubmit(values: FieldValues) {
     // console.log(values);
     const result = await loginUser(values);
     // console.log(result);
+
     if (result?.success) {
       toast.success(result?.message);
+      setIsLoading(true)
       router.push("/");
     } else {
       toast.success(result?.message);
