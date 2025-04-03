@@ -18,6 +18,9 @@ import icon3 from "@/assets/images/icon3.png";
 import icon4 from "@/assets/images/icon4.png";
 import icon5 from "@/assets/images/icon5.png";
 
+
+
+
 const AboutUsPage = () => {
   const [activeTab, setActiveTab] = useState("All");
 

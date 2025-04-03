@@ -99,3 +99,21 @@ export const studentEnrollCourse = async (id: string) => {
     return Error(error);
   }
 };
+export const getTutorSellCourseForNeedTutor = async (id: string) => {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_API}/apply-need-tutor/get-tutor-sell-course/${id}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const result = await res.json();
+    // console.log(result);
+    return result;
+  } catch (error: any) {
+    return Error(error);
+  }
+};

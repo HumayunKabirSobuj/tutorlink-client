@@ -4,13 +4,11 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { getAllUser, getCurrentUser } from "@/services/AuthService";
-import {
-  deleteNeedNeedTutorPost,
-} from "@/services/NeedTutor";
+
 import { TGetAllUsers } from "@/types";
 import { toast } from "sonner";
 import Link from "next/link";
-import { tutorTutoringPost } from "@/services/TutoringPost";
+import { deleteTutoringPost, tutorTutoringPost } from "@/services/TutoringPost";
 
 const ManageTutionsPost = () => {
   const [postData, setPostData] = useState<any[]>([]);
@@ -52,7 +50,7 @@ const ManageTutionsPost = () => {
 
       //   console.log(modifiedData);
 
-      const result = await deleteNeedNeedTutorPost(modifiedData);
+      const result = await deleteTutoringPost(modifiedData);
       //   console.log(result);
       if (result?.success) {
         toast.success(result.message);

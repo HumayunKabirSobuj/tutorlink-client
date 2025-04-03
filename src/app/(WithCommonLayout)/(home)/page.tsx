@@ -5,9 +5,6 @@ import FAQSection from "@/components/module/commonLayout/home/FAQSection";
 import TuitionTypes from "@/components/module/commonLayout/home/TutionTypes";
 import TutoringJobs from "@/components/module/commonLayout/home/TutoringJobs";
 
-
-// import { useUser } from "@/context/UserContext";
-
 const HomePage = () => {
   // const user = useUser();
  

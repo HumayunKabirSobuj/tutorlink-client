@@ -31,7 +31,6 @@ const ApplyTutionJobTable = ({ tutorsData }: { tutorsData: any[] }) => {
               <th className="border p-3 text-center">Student</th>
               <th className="border p-3 text-center">Select Status</th>
               <th className="border p-3 text-center">Payment Status</th>
-              <th className="border p-3 text-center">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -51,7 +50,9 @@ const ApplyTutionJobTable = ({ tutorsData }: { tutorsData: any[] }) => {
                 <td className="border p-3 text-center">
                   <Dialog>
                     <DialogTrigger asChild>
-                      <Button variant="outline" className="rounded-full">Student Info</Button>
+                      <Button variant="outline" className="rounded-full">
+                        Student Info
+                      </Button>
                     </DialogTrigger>
                     <DialogContent className="sm:max-w-[425px] p-4">
                       <DialogHeader>
@@ -87,10 +88,10 @@ const ApplyTutionJobTable = ({ tutorsData }: { tutorsData: any[] }) => {
                 </td>
 
                 <td className="border p-3 text-center">{item?.selectStatus}</td>
-                <td className="border p-3 text-center">{item?.paymentStatus}</td>
                 <td className="border p-3 text-center">
-                    <Button className="rounded-full" variant={"outline"}>Delete</Button>
+                  {item?.paymentStatus}
                 </td>
+               
               </tr>
             ))}
           </tbody>

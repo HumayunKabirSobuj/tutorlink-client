@@ -29,7 +29,7 @@ const useTutorInfo = (email: string) => {
 
   // Filter the tutorInformation array based on the provided email
   const filteredTutor = tutorInformation.filter(
-    (tutor) => tutor.tutorInfo.email === email
+    (tutor) => tutor?.tutorInfo?.email === email
   );
 
   return { tutorInformation, filteredTutor, loading, error };

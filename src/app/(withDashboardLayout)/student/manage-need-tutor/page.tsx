@@ -65,10 +65,12 @@ const TableComponent = () => {
   return (
     <div className="overflow-x-auto rounded-2xl border border-gray-300">
       <table className="min-w-full border border-gray-300 bg-white rounded-3xl">
-        <thead>
+      <thead>
           <tr className="bg-gray-100">
             <th className="border p-3 text-left">Heading</th>
             <th className="border p-3 text-left">Price Per Month</th>
+            <th className="border p-3 text-left">Selected Status</th>
+            <th className="border p-3 text-left">Paid Status</th>
             <th className="border p-3 text-center">Action</th>
             <th className="border p-3 text-center">Applications</th>
           </tr>
@@ -85,9 +87,12 @@ const TableComponent = () => {
               <tr key={item._id} className="border">
                 <td className="border p-3">{item?.heading}</td>
                 <td className="border p-3">{item?.salaryRange}</td>
+                <td className="border p-3">{item?.selectedStatus}</td>
+                <td className="border p-3">{item?.paidStatus}</td>
                 <td className="border p-3 text-center">
                   <Button
                     variant="outline"
+                    disabled={item?.paidStatus === 'Done'}
                     className="px-3 py-1 rounded-full"
                     onClick={() => handleDelete(item?._id)}
                   >

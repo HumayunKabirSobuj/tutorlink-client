@@ -7,7 +7,7 @@ import { ITutorInfo } from "@/types";
 // import { getAllTutorInfo } from "@/services/TutorInfoUpdate";
 
 interface TutorTabsProps {
-  preferredClasses: string[];
+  
   email: string;
 }
 
